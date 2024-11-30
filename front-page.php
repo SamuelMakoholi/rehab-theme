@@ -1,76 +1,52 @@
 <?php
-
+/***
+ * Template for showing the front page of the website
+ */
 get_header();
 ?>
-		<section class="slider-one">
-			<div class="thm-owl__carousel owl-carousel owl-theme" data-owl-options='{
-				"loop": true,
-				"autoplay": true,
-				"autoplayTimeOut": 7000,
-				"items": 1,
-				"margin": 0,
-				"animateIn": "fadeIn",
-				"animateOut": "slideOutDown",
-				"nav": true,
-				"dots": true,
-				"navText": ["<span class=\"paroti-icon-left-arrow\"></span>","<span class=\"paroti-icon-right-arrow\"></span>"]
-			}'>
-				<div class="item">
-					<div class="slider-one__item">
-						<div class="slider-one__image"
-							style="background-image: url(<?php bloginfo('template_directory'); ?>/assets/images/backgrounds/slider-1-1.jpg);"></div>
-						<!-- /.slider-one__image -->
-						<div class="container">
-							<h2 class="slider-one__title">Be a <span>voice</span> <br>
-								for poor people</h2><!-- /.slider-one__title -->
-							<p class="slider-one__text">We are here to support you every step of the way</p>
-							<!-- /.slider-one__text -->
-							<div class="slider-one__btns">
-								<a href="about.html" class="thm-btn slider-one__btn">
-									<span>Discover More</span>
-								</a><!-- /.thm-btn slider-one__btn -->
-							</div><!-- /.slider-one__btns -->
-						</div><!-- /.container -->
-					</div><!-- /.slider-one__item -->
-				</div><!-- /.item -->
-				<div class="item">
-					<div class="slider-one__item">
-						<div class="slider-one__image"
-							style="background-image: url(<?php bloginfo('template_directory'); ?>/assets/images/backgrounds/slider-1-2.jpg);"></div>
-						<!-- /.slider-one__image -->
-						<div class="container">
-							<h2 class="slider-one__title">Be a <span>voice</span> <br>
-								for poor people</h2><!-- /.slider-one__title -->
-							<p class="slider-one__text">We are here to support you every step of the way</p>
-							<!-- /.slider-one__text -->
-							<div class="slider-one__btns">
-								<a href="about.html" class="thm-btn slider-one__btn">
-									<span>Discover More</span>
-								</a><!-- /.thm-btn slider-one__btn -->
-							</div><!-- /.slider-one__btns -->
-						</div><!-- /.container -->
-					</div><!-- /.slider-one__item -->
-				</div><!-- /.item -->
-				<div class="item">
-					<div class="slider-one__item">
-						<div class="slider-one__image"
-							style="background-image: url(<?php bloginfo('template_directory'); ?>/assets/images/backgrounds/slider-1-3.jpg);"></div>
-						<!-- /.slider-one__image -->
-						<div class="container">
-							<h2 class="slider-one__title">Be a <span>voice</span> <br>
-								for poor people</h2><!-- /.slider-one__title -->
-							<p class="slider-one__text">We are here to support you every step of the way</p>
-							<!-- /.slider-one__text -->
-							<div class="slider-one__btns">
-								<a href="about.html" class="thm-btn slider-one__btn">
-									<span>Discover More</span>
-								</a><!-- /.thm-btn slider-one__btn -->
-							</div><!-- /.slider-one__btns -->
-						</div><!-- /.container -->
-					</div><!-- /.slider-one__item -->
-				</div><!-- /.item -->
-			</div><!-- /.thm-owl__carousel -->
-		</section>
+		<?php if (get_theme_mod('slider_enable', true)) : ?>
+    <section class="slider-one">
+        <div class="thm-owl__carousel owl-carousel owl-theme" data-owl-options='{
+            "loop": true,
+            "autoplay": true,
+            "autoplayTimeOut": 7000,
+            "items": 1,
+            "margin": 0,
+            "animateIn": "fadeIn",
+            "animateOut": "slideOutDown",
+            "nav": true,
+            "dots": true,
+            "navText": ["<span class=\"paroti-icon-left-arrow\"></span>","<span class=\"paroti-icon-right-arrow\"></span>"]
+        }'>
+            <?php for ($i = 1; $i <= 3; $i++) : 
+                $slider_image = get_theme_mod("slider_image_$i"); 
+                $slider_title = get_theme_mod("slider_title_$i", __("Default Title $i", 'rehab'));
+                $slider_subtitle = get_theme_mod("slider_subtitle_$i", __("Default Subtitle $i", 'rehab'));
+                $slider_button_text = get_theme_mod("slider_button_text_$i", __("Discover More", 'rehab'));
+                $slider_button_link = get_theme_mod("slider_button_link_$i", '#');
+                if ($slider_image) : ?>
+                    <div class="item">
+                        <div class="slider-one__item">
+                            <div class="slider-one__image" style="background-image: url(<?php echo esc_url($slider_image); ?>);"></div>
+                            <div class="container">
+                                <h2 class="slider-one__title"><?php echo esc_html($slider_title); ?></h2>
+                                <p class="slider-one__text"><?php echo esc_html($slider_subtitle); ?></p>
+                                <div class="slider-one__btns">
+                                    <a href="<?php echo esc_url($slider_button_link); ?>" class="thm-btn slider-one__btn">
+                                        <span><?php echo esc_html($slider_button_text); ?></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; 
+            endfor; ?>
+        </div>
+    </section>
+<?php endif; ?>
+
+
+
 
 		<section class="sec-pad-top sec-pad-bottom about-two">
 			<img src="<?php bloginfo('template_directory'); ?>/assets/images/shapes/about-2-1.png" class="about-two__shape-1 float-bob-x" alt="">
